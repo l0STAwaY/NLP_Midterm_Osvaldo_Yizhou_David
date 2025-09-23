@@ -12,7 +12,7 @@ The previously defined  5 train/evaluate configuration files will have the same 
 
 ----
 
-In summary we would have 1 NlP base case dataset, 5 configuration file and 5 pesudo label dataset. We will evluate the final outputed pesudo-label dataset which has the label for all text as the final accuarcy of that model. 
+In summary we would have 1 NlP base case dataset, 5 configuration file and 5 pesudo label dataset. We will evluate the final output  pesudo-label dataset which has the label for all text as the final accuarcy of that model. 
 
 - 1 NLP_basecase_file -> used to evalate model without self-training and also used as the first stage of self-training
 
