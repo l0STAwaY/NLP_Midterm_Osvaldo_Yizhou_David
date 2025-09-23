@@ -6,4 +6,4 @@ BaseCase_nlp_schloar -> The text data
 
 Assuming that each self-training pipeline has a average of 5 steps, we would have 5 train/evaluate configuration files for each step.
 
-For a self-training pipeline we would first have the model,
+For a self-training pipeline we would first have the model, apply it to unlabeled data, select 1/5th of the most confident predictions, retrain the model, get fine-tuned results.
