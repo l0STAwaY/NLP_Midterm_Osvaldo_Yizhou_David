@@ -8,7 +8,7 @@ For a self-training pipeline we would first have the model, apply it to unlabele
 
 In all these iterations, we would produce add peusdo labels and create a new dataset for our most confident texts/labels. This will produce 5 data sets of peudo-label datasets.
 
-The previously defined  5 train/evaluate configuration files will have the same model condifguration since we are assuming that we can't save the model weights in NLP scholoar for each finetune interation. That is we are finetuning the same model from scratch in each iteration using the augumented dataset from the previous iteration.
+The previously defined  5 train/evaluate configuration files will have the same model condifguration since we are assuming that we can't save the model weights in NLPscholar for each finetune interation. That is we are finetuning the same model from scratch in each iteration using the augumented dataset from the previous iteration.
 
 ----
 
