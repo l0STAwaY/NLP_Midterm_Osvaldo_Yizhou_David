@@ -18,6 +18,6 @@ In summary we would have 1 NlP base case dataset, 5 configuration file and 5 pes
 
 - 5 configuration_file -> train a model on the previous pesudo labels and generate new pesduo labels for the remaining texts and take the most confident cases
 
-- pesudo-label dataset-> used to finetune the loaded model in each stage. The final stage would create a pesudo-label dataset that has all the texts and their predicted labels. This is the dataset we will evaluate the overall accuracy on.
+- 5 pesudo-label dataset-> used to finetune the loaded model in each stage. The final stage would create a pesudo-label dataset that has all the texts and their predicted labels. This is the dataset we will evaluate the overall accuracy on.
 
 
