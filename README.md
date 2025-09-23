@@ -10,8 +10,9 @@ In all these iterations, we would produce add peusdo labels and create a new dat
 
 The previously defined  5 train/evaluate configuration files will have the same model condifguration since we are assuming that we can't save the model weights in NLP scholoar for each finetune interation. That is we are finetuning the same model from scratch in each iteration using the augumented dataset from the previous iteration.
 
+----
 
-In summary we would have 1 NlP base case dataset, 5 configuration file and 5 pesudo label dataset. We will evluate the final outputed pesudo-label dataset which has the label for all text as the final accuarcy of that model.
+In summary we would have 1 NlP base case dataset, 5 configuration file and 5 pesudo label dataset. We will evluate the final outputed pesudo-label dataset which has the label for all text as the final accuarcy of that model. 
 
 - 1 NLP_basecase_file -> used to evalate model without self-training and also used as the first stage of self-training
 
