@@ -1,0 +1,5 @@
+	model	target	target_class	precision	recall	f1
+0	roberta-large	Business	Business	1.0	0.03468208092485549	0.0670391061452514
+1	roberta-large	Sci/Tech	Sci/Tech	0.0	0.0	0.0
+2	roberta-large	Sports	Sports	1.0	0.29577464788732394	0.45652173913043476
+3	roberta-large	World	World	1.0	0.7594339622641509	0.8632707774798928
