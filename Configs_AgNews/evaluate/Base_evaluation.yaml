@@ -1,0 +1,33 @@
+exp: TextClassification
+
+mode: 
+    - evaluate
+    - analyze
+
+
+models:
+    hf_text_classification_model:
+        # - distilbert-base-uncased
+        - roberta-large
+
+
+predfpath: ../predictions/agreement.tsv
+
+datafpath: ../NLP_dataset/Base_predictions_AgNews.tsv
+
+resultsfpath: ../results/agreement.tsv
+
+id2label: 
+    0: World 
+    1: Sports
+    2: Business
+    3: Sci/Tech
+
+
+
+samplePercent: 1
+save:  by_cond, by_target
+conditions: target
+
+
+
