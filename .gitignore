@@ -3,3 +3,7 @@ Data_Raw_File/raw/yahoo/yahoo_answers_csv.tar.gz
 # Large dataset files (over 100MB)
 NLP_dataset/MNLI_formatted/Shared_BaseTrain_MNLI.tsv
 NLP_dataset/MNLI_formatted/*.tsv
+
+# macOS files
+.DS_Store
+**/.DS_Store
