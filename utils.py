@@ -16,7 +16,9 @@ def top_entailment_per_target(df, entail = "ENTAILMENT"):
     idx = df.groupby('target')[entail].idxmax(axis=0)
     return df.loc[idx].reset_index(drop=True)
 
-def get_positive_example(df, percent=0.1, score_cols=['ENTAILMENT', 'NEUTRAL', 'CONTRADICTION']):
+
+
+def get_positive_example(df, percent=0.1, score_cols=['entailment', 'neutral', 'contradiction']):
     """
     From the top entailment per target, select the top X% most confident examples 
     based on the delta between the top and second-highest MNLI scores.
@@ -30,22 +32,27 @@ def get_positive_example(df, percent=0.1, score_cols=['ENTAILMENT', 'NEUTRAL', '
         pd.DataFrame: DataFrame with top X% most confident examples.
     """
     # First, select top entailment per target
-    top_df = top_entailment_per_target(df)
+
     
     # Extract MNLI score values
-    scores = top_df[score_cols]
-    
+    top_df = top_entailment_per_target(df)
+    scores = df.groupby("target")["ENTAILMENT"]
+    # print(  scores)
     #Maximum values per row:
-    largeset_score = np.max(scores,axis = 1)
-    
+    largeset_score = scores.max()
     # make it so that 
     # all value before -2 are less thanit and all value after it are greater, so we specify that there is only index -1 greater than it
-    second_largest = pd.Series([np.partition(scores.iloc[i], -2)[-2] for i in range(len(scores))])
- 
-    # creates delta series
+    second_largest = scores.apply(lambda x: np.partition(x, -2)[-2])
     
-    delta =  largeset_score-second_largest
-     
+    # print("largest\n")
+    # print(largeset_score)
+    # print("second largest\n")
+    # print( second_largest )
+    
+    delta =  largeset_score-second_largest 
+    # print("delta\n")
+    # print( delta )
+    
     # this gets us the value on the top
     
     top_df["delta"]= delta
@@ -54,8 +61,12 @@ def get_positive_example(df, percent=0.1, score_cols=['ENTAILMENT', 'NEUTRAL', '
     df_sorted_delta = top_df.sort_values(by='delta', ascending=False)
     
     top_percent_df = df_sorted_delta[:int(len(df_sorted_delta)*percent)]
+    
+    top_percent_df["target"] =  int(len(df_sorted_delta)*percent) * [score_cols[0]]
 
     return top_percent_df
+    
+
 
 
     
@@ -68,6 +79,7 @@ def get_negative_random(data,percent=0.1,contra = "CONTRADICTION"):
     Parameters:
     
        Positve df
+       data is the eval output file
         
     Returns:
        Full finetuning dataset
