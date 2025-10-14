@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import random
 
 def top_entailment_per_target(df, entail = "ENTAILMENT"):
     """
@@ -59,19 +59,65 @@ def get_positive_example(df, percent=0.1, score_cols=['ENTAILMENT', 'NEUTRAL', '
 
 
     
-def generate_contrast_random(positve,contra = "CONTRADICTION"):
+def get_negative_random(positive,contra = "CONTRADICTION"):
     """
     For each entailment pair, generate a negative example by replacing the class
     in the hypothesis with a random different class, and assign the contradict label.
     
     Parameters:
-        df (pd.DataFrame): DataFrame with at least 'premise', 'hypothesis', and 'class' columns.
-        class_col (str): Column name that indicates the class (c) in the hypothesis.
-        premise_col (str): Column name for the premise.
-        hypothesis_col (str): Column name for the hypothesis.
-        entailment_label (str): Label for positive examples.
-        contradict_label (str): Label for negative examples.
+    
+       Positve df
         
     Returns:
-        pd.DataFrame: DataFrame containing only negative examples with contradict label.
+       Full finetuning dataset
     """
+
+    pos = positive
+    sample_space = set(pos["textid"].unique())
+    for idx in range(len(positive)):
+        pos.loc[idx, "target"] = contra 
+        event1 =  {pos.loc[idx, "textid"]}
+       
+        pos.loc[idx, "textid"] = int(random.sample(sample_space - sample_space.intersection(event1),1)[0])
+        
+    return pos
+
+
+
+def create_fintune_data(data,originl_train_data,percent,num_label = 4):
+    
+    pos = get_positive_example(data,percent)
+    neg = get_negative_random(data,percent)
+    
+    org_pos = pos.index 
+    mnli_index_pos = org_pos * num_label
+    mapping_mask =  {0:"World" ,1:"Sports",2:"Business",3:"Sci/Tech"}
+    # Map textid -> label and format each as a string
+    
+    # apply a mask and create template
+    pos_pairs = pos["textid"].map(mapping_mask).apply(lambda x: f"This example is {x}")
+
+    # Combine with neg pairs
+    # 
+    pair_series = pd.concat([pos_pairs, neg["pair"]], ignore_index=True)
+
+
+    template = pos["textid"].map(mapping_mask),neg["pair"]
+    output = pd.DataFrame({
+        
+        "textid": range(2 * len(pos)),
+        "pair": pair_series,
+        "text":  pd.concat([originl_train_data.loc[mnli_index_pos,"text"], originl_train_data.loc[mnli_index_pos,"text"],],ignore_index=True),
+        
+        "label": pd.concat([pd.Series(len(pos)*["ENTAILMENT"]), neg["target"]],ignore_index=True)
+        
+        
+    })
+    
+    return output
+
+
+
+
+    
+    
