@@ -59,7 +59,8 @@ def get_positive_example(df, percent=0.1, score_cols=['ENTAILMENT', 'NEUTRAL', '
 
 
     
-def get_negative_random(positive,contra = "CONTRADICTION"):
+
+def get_negative_random(data,percent=0.1,contra = "CONTRADICTION"):
     """
     For each entailment pair, generate a negative example by replacing the class
     in the hypothesis with a random different class, and assign the contradict label.
@@ -72,15 +73,21 @@ def get_negative_random(positive,contra = "CONTRADICTION"):
        Full finetuning dataset
     """
 
-    pos = positive
+    pos = get_positive_example(data,percent=percent).dropna().reset_index(drop=True)
     sample_space = set(pos["textid"].unique())
-    for idx in range(len(positive)):
+    for idx in range(len(pos)):
         pos.loc[idx, "target"] = contra 
         event1 =  {pos.loc[idx, "textid"]}
-       
-        pos.loc[idx, "textid"] = int(random.sample(sample_space - sample_space.intersection(event1),1)[0])
-        
+        pos.loc[idx, "textid"] = int(random.sample(list(sample_space - event1), 1)[0])
+        mapping_mask =  {0:"World" ,1:"Sports",2:"Business",3:"Sci/Tech"}
+        label_type = mapping_mask[int(pos.loc[idx, "textid"])]
+        pos.loc[idx, "pair"] = f"This example is {label_type}"
+    
     return pos
+        
+
+
+
 
 
 
@@ -102,7 +109,6 @@ def create_fintune_data(data,originl_train_data,percent,num_label = 4):
     pair_series = pd.concat([pos_pairs, neg["pair"]], ignore_index=True)
 
 
-    template = pos["textid"].map(mapping_mask),neg["pair"]
     output = pd.DataFrame({
         
         "textid": range(2 * len(pos)),
