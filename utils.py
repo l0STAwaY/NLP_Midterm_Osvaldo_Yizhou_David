@@ -86,7 +86,7 @@ def get_negative_random(data,percent=0.1,contra = "CONTRADICTION"):
     """
 
     pos = get_positive_example(data,percent=percent).dropna().reset_index(drop=True)
-    sample_space = set(pos["textid"].unique())
+    sample_space = set(data["textid"].unique())
     for idx in range(len(pos)):
         pos.loc[idx, "target"] = contra 
         event1 =  {pos.loc[idx, "textid"]}
