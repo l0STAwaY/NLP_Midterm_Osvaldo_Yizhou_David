@@ -1,0 +1,30 @@
+exp: TextClassification 
+
+
+mode:
+  - train
+
+models:
+  hf_text_classification_model:
+    - microsoft/deberta-base-mnli
+
+      
+trainfpath: ../NLP_426/MNLI_Model2/Shared_iteration1_finetune_train.tsv
+
+validfpath:  ../NLP_426/MNLI_Model2/Shared_iteration1_finetune_train.tsv
+
+modelfpath: ../NLP_426/MNLI_Model2/finetune2/iteration_1/model_1
+
+numLabels: 3
+
+seed: 315
+
+device: cuda
+
+id2label:          
+    0: NEUTRAL
+    1: CONTRADICTION
+    2: ENTAILMENT 
+
+
+loadPretrained: True

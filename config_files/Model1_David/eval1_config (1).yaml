@@ -1,0 +1,21 @@
+
+exp: TextClassification 
+
+
+mode:
+  - evaluate 
+
+  
+models:
+  hf_text_classification_model:
+    -  /home/dreyes/Midterm/model1_base_eval/finetune1/models_1/iteration_1_model
+      
+datafpath: /home/dreyes/Midterm/Shared_BaseTrain_MNLI.tsv
+
+predfpath: /home/dreyes/Midterm/model1_base_eval/finetune1/iteration_1/predictions_it_1.tsv
+
+device: cuda:0
+
+seed: 314
+
+giveAllLabels: True

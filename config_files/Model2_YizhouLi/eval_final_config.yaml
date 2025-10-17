@@ -1,0 +1,21 @@
+
+exp: TextClassification 
+
+
+mode:
+  - evaluate 
+
+models:
+  hf_text_classification_model:
+    - ../NLP_426/MNLI_Model2/finetune2/final_output/Final_Model
+      
+datafpath: ../NLP_426/MNLI_Model2/Shared_Test_MNLI.tsv
+
+predfpath: ../NLP_426/MNLI_Model2/finetune2/final_output/prediction_final/model2_final_eval.tsv
+
+device: cuda
+
+seed: 315
+
+giveAllLabels: True
+

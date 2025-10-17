@@ -1,0 +1,31 @@
+exp: TextClassification 
+
+
+mode:
+  - train
+
+  
+models:
+  hf_text_classification_model:
+    - microsoft/deberta-base-mnli
+
+      
+trainfpath: /home/dreyes/Midterm/model1_base_eval/finetune1/iteration_1/iteration1_finetune_train.tsv
+
+validfpath: /home/dreyes/Midterm/model1_base_eval/finetune1/iteration_1/iteration1_finetune_train.tsv
+
+modelfpath: /home/dreyes/Midterm/model1_base_eval/finetune1/models_1/iteration_1_model
+
+numLabels: 3
+
+seed: 314
+
+device: cuda:0 
+
+id2label:          
+    0: NEUTRAL
+    1: CONTRADICTION
+    2: ENTAILMENT 
+
+
+loadPretrained: True

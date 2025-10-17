@@ -1,0 +1,30 @@
+exp: TextClassification 
+
+
+mode:
+  - train
+
+models:
+  hf_text_classification_model:
+     - ../NLP_426/MNLI_Model2/finetune2/iteration_2/model_2
+
+      
+trainfpath: ../NLP_426/MNLI_Model2/finetune2/final_output/final_finetune_train.tsv
+
+validfpath:  ../NLP_426/MNLI_Model2/finetune2/final_output/final_finetune_train.tsv
+
+modelfpath: ../NLP_426/MNLI_Model2/finetune2/final_output/Final_Model
+
+numLabels: 3
+
+seed: 315
+
+device: cuda
+
+id2label:          
+    0: NEUTRAL
+    1: CONTRADICTION
+    2: ENTAILMENT 
+
+
+loadPretrained: True
