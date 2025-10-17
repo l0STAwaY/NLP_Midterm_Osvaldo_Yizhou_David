@@ -1,0 +1,17 @@
+
+exp: TextClassification
+
+mode:
+  - train
+
+models:
+  hf_masked_model:
+    - microsoft/deberta-base-mnli
+
+
+textLabel: premise
+pairLabel: hypothesis
+
+predfpath: ../predictions/test_results.tsv
+
+datafpath: /Users/apple/Documents/GitHub/NLP_Midterm_Osvaldo_Yizhou_David/Testing/example_data.tsv

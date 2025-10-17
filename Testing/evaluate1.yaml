@@ -1,0 +1,20 @@
+
+exp: TextClassification
+
+mode:
+  - evaluate
+
+models:
+    hf_text_classification_model:
+        # - roberta-large-mnli
+        - huggingface/distilbert-base-uncased-finetuned-mnli
+        
+
+predfpath: ../predictions/test_results.tsv
+
+datafpath: /Users/apple/Documents/GitHub/NLP_Midterm_Osvaldo_Yizhou_David/Testing/example_data.tsv
+giveAllLabels: True
+checkFileColumns: True
+
+
+

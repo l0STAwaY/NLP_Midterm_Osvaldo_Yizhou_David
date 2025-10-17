@@ -1,0 +1,5 @@
+textid	class	text	hypothesis	target
+greeting	greeting	hello	this is a greeting	0
+question	question	hello	this is a question	0
+greeting	greeting	why	this is a greeting	1
+question	question	why	this is a question	1
